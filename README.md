@@ -9,7 +9,17 @@ SimpleOAuth Aims to abstract all the complexities of Authentication using extern
 
 # How To Use
 Simply Register the SimpleOAuth along with the respective external provider that you wish to use.
-![image](https://user-images.githubusercontent.com/37509414/189523834-db1ed2b4-d0be-43c0-9fe9-695606ef3524.png)
+
+     public void ConfigureServices(this IServiceColletion services)
+     {
+       services
+       .AddSimpleOAuth()
+       .AddSimpleOAuthProviders(providers=>
+       {
+         providers.GoogleOAuthClientConfiguration = new GoogleOAuthClientConfiguration("your Client-ID","your client-secret")
+         {}
+       })
+     }
 
 In your controller inject the IAuthenticationServiceProvider which would help you to get the correct Authentication Service
 (google/facebook/microsoft/twitter)
