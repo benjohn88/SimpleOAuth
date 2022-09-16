@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using SimpleOAuth.ConfigurationModel;
 
 namespace SimpleOAuth.Register
 {
@@ -12,7 +13,7 @@ namespace SimpleOAuth.Register
             return services;
         }
 
-        public static IServiceCollection AddSimpleOAuthGoogle(this IServiceCollection services, Action<GoogleOAuthClientConfiguration> configure)
+        public static IServiceCollection AddSimpleOAuthGoogle(this IServiceCollection services, Action<SimpleOAuthConfiguration> configure)
         {
             services.Configure(configure);
             return services;
