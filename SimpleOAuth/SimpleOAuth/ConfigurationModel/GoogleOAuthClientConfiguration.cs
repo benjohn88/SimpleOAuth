@@ -1,6 +1,6 @@
 ﻿namespace SimpleOAuth
 {
-    public class GoogleOAuthClientConfiguration : OAuthClientConfiguration
+    public class GoogleOAuthClientConfiguration : OAuthClientBaseConfiguration
     {
         public GoogleOAuthClientConfiguration(
             string clientId,
