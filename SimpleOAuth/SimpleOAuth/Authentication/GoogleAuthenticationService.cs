@@ -8,11 +8,14 @@
         private readonly UriBuilder _uriBuilder;
 
         public Provider Provider => Provider.Google;
-        public string[] AllowedScoped { get; private set; }
+        public HashSet<string> AllowedScoped { get; private set; }
 
         public GoogleAuthenticationService(GoogleOAuthClientConfiguration googleOAuthClientConfiguration)
         {
-            AllowedScoped = new string[] { "openid", "email" };
+			AllowedScoped = new HashSet<string>(){
+				"openid",
+				"email"
+			};
             _googleOAuthClientConfiguration = googleOAuthClientConfiguration;
             _uriBuilder = SetUri();
         }
@@ -29,9 +32,26 @@
 
         public Uri AuthUri(params string[] scope)
         {
+			if(!ValidateScope())
+			{
+               throw new ScopeNotSupportedException("Some Scopes are not supported Yet");
+			}
             var scopes = string.Join(" ", scope.ToArray());
 
             return _uriBuilder.Uri.AddParamerteCollection(BaseConfigurationSets).AddParameter("scope", scopes);
+
+			bool ValidateScope()
+			{
+
+				foreach(var scope in scope)
+				{
+					if(!AllowedScoped.Contains(scope))
+					{
+						return false;
+					}
+				}
+				return true;
+			}
         }
 
         public override string ToString()
