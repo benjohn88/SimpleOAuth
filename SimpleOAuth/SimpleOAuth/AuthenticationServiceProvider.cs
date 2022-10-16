@@ -4,7 +4,9 @@
     {
         private readonly IEnumerable<IAuthenticationService> _authenticationService;
 
-        public AuthenticationServiceProvider(IEnumerable<IAuthenticationService> authenticationServices)
+        public AuthenticationServiceProvider(
+            IEnumerable<IAuthenticationService> authenticationServices
+        )
         {
             _authenticationService = authenticationServices;
         }

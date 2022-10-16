@@ -10,12 +10,11 @@
         public Provider Provider => Provider.Google;
         public HashSet<string> AllowedScoped { get; private set; }
 
-        public GoogleAuthenticationService(GoogleOAuthClientConfiguration googleOAuthClientConfiguration)
+        public GoogleAuthenticationService(
+            GoogleOAuthClientConfiguration googleOAuthClientConfiguration
+        )
         {
-			AllowedScoped = new HashSet<string>(){
-				"openid",
-				"email"
-			};
+            AllowedScoped = new HashSet<string>() { "openid", "email" };
             _googleOAuthClientConfiguration = googleOAuthClientConfiguration;
             _uriBuilder = SetUri();
         }
@@ -32,26 +31,27 @@
 
         public Uri AuthUri(params string[] scope)
         {
-			if(!ValidateScope())
-			{
-               throw new ScopeNotSupportedException("Some Scopes are not supported Yet");
-			}
+            if (!ValidateScope())
+            {
+                throw new ScopeNotSupportedException("Some Scopes are not supported Yet");
+            }
             var scopes = string.Join(" ", scope.ToArray());
 
-            return _uriBuilder.Uri.AddParamerteCollection(BaseConfigurationSets).AddParameter("scope", scopes);
+            return _uriBuilder.Uri
+                .AddParamerteCollection(BaseConfigurationSets)
+                .AddParameter("scope", scopes);
 
-			bool ValidateScope()
-			{
-
-				foreach(var scope in scope)
-				{
-					if(!AllowedScoped.Contains(scope))
-					{
-						return false;
-					}
-				}
-				return true;
-			}
+            bool ValidateScope()
+            {
+                foreach (var scope in scope)
+                {
+                    if (!AllowedScoped.Contains(scope))
+                    {
+                        return false;
+                    }
+                }
+                return true;
+            }
         }
 
         public override string ToString()
@@ -64,11 +64,12 @@
             throw new NotImplementedException();
         }
 
-        private Dictionary<string, string> BaseConfigurationSets => new Dictionary<string, string>
-        {
-            {"client_id", _googleOAuthClientConfiguration.ClientId},
-            {"response_type", _googleOAuthClientConfiguration.ResponseType!},
-            {"redirect_uri",_googleOAuthClientConfiguration!.RedirectUrl!  }
-        };
+        private Dictionary<string, string> BaseConfigurationSets =>
+            new Dictionary<string, string>
+            {
+                { "client_id", _googleOAuthClientConfiguration.ClientId },
+                { "response_type", _googleOAuthClientConfiguration.ResponseType! },
+                { "redirect_uri", _googleOAuthClientConfiguration!.RedirectUrl! }
+            };
     }
 }

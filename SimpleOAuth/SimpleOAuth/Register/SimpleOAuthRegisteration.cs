@@ -13,7 +13,10 @@ namespace SimpleOAuth.Register
             return services;
         }
 
-        public static IServiceCollection AddSimpleOAuthProviders(this IServiceCollection services, Action<SimpleOAuthConfiguration> configure)
+        public static IServiceCollection AddSimpleOAuthProviders(
+            this IServiceCollection services,
+            Action<SimpleOAuthConfiguration> configure
+        )
         {
             services.Configure(configure);
             return services;

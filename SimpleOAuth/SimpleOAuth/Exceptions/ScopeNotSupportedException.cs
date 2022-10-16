@@ -1,7 +1,4 @@
 public class ScopeNotSupportedException : Exception
 {
-	public ScopeNotSupportedException(string message):base(message)
-	{
-
-	}
+    public ScopeNotSupportedException(string message) : base(message) { }
 }

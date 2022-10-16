@@ -1,6 +1,4 @@
 ﻿namespace SimpleOAuth.Extension
 {
-    public static class SimpleOAuthExtensions
-    {
-    }
+    public static class SimpleOAuthExtensions { }
 }

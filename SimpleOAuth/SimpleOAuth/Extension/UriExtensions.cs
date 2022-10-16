@@ -4,7 +4,10 @@ namespace SimpleOAuth
 {
     internal static class UriExtensions
     {
-        public static Uri AddParamerteCollection(this Uri url, Dictionary<string, string> keyValuePairs)
+        public static Uri AddParamerteCollection(
+            this Uri url,
+            Dictionary<string, string> keyValuePairs
+        )
         {
             foreach (var item in keyValuePairs)
             {
