@@ -3,6 +3,7 @@
     public class GoogleAuthenticationService : IAuthenticationService
     {
         private const string _basePath = "accounts.google.com";
+        private const string _basePathToken = "accounts.google.com";
 
         private readonly GoogleOAuthClientConfiguration _googleOAuthClientConfiguration;
         private readonly UriBuilder _uriBuilder;
@@ -16,18 +17,35 @@
         {
             AllowedScoped = new HashSet<string>() { "openid", "email" };
             _googleOAuthClientConfiguration = googleOAuthClientConfiguration;
-            _uriBuilder = SetUri();
+            _uriBuilder = SetUri(_basePathToken,SimpleOAuth.Path.AuthEndpoint);
         }
 
-        private UriBuilder SetUri()
+        private UriBuilder SetUri(string basePath, Path path)
         {
             return new UriBuilder
             {
                 Scheme = "https",
-                Host = _basePath,
-                Path = "o/oauth2/v2/auth"
+                Host = basePath,
+                Path = GetPath();
             };
+
+
+	    private string GetPath()
+	    {
+		return path switch
+		{
+		   Path.AuthEndpoint => "o/oauth2/v2/auth",
+	           Path.TokenExchange => "token"
+		}
+	    }
         }
+
+	private enum Path 
+	{
+	   AuthEndpoint,
+	   TokenExchange
+
+	}
 
         public Uri AuthUri(params string[] scope)
         {
